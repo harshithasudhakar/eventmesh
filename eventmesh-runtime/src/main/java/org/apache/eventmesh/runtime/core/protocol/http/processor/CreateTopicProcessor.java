@@ -73,7 +73,7 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
         // user request header
         Map<String, Object> userRequestHeaderMap = requestWrapper.getHeaderMap();
         String requestIp = RemotingHelper.parseChannelRemoteAddr(ctx.channel());
-        userRequestHeaderMap.put(ProtocolKey.ClientInstanceKey.IP, requestIp);
+        userRequestHeaderMap.put(ProtocolKey.ClientInstanceKey.IP.getKey(), requestIp);
 
 
         Map<String, Object> responseHeaderMap = new HashMap<>();
@@ -153,6 +153,6 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
 
     @Override
     public String[] paths() {
-        return new String[]{RequestURI.CRATE_TOPIC.getRequestURI()};
+        return new String[]{RequestURI.CREATE_TOPIC.getRequestURI()};
     }
 }

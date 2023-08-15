@@ -19,8 +19,8 @@ package org.apache.eventmesh.connector.openfunction.source.connector;
 
 import org.apache.eventmesh.connector.openfunction.source.config.OpenFunctionSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
-import org.apache.eventmesh.openconnect.api.data.ConnectRecord;
 import org.apache.eventmesh.openconnect.api.source.Source;
+import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +88,10 @@ public class OpenFunctionSourceConnector implements Source {
                 }
                 connectRecords.add(connectRecord);
             } catch (InterruptedException e) {
-                // nothing to do
-                break;
+                Thread currentThread = Thread.currentThread();
+                log.warn("[OpenFunctionSourceConnector] Interrupting thread {} due to exception {}",
+                    currentThread.getName(), e.getMessage());
+                currentThread.interrupt();
             }
         }
         return connectRecords;
